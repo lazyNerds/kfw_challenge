@@ -33,3 +33,33 @@ Die Applikation besteht im wesentlichen aus drei Seiten
 
 > Ihr könnt hier eure Dokumentation zu den Herausforderungen hinzufügen oder euch im Team auf eine eigene Dokumentations Struktur einigen
 
+#ASC
+
+az acr login --name  lazynerds.azurecr.io
+
+
+# FRONTEND
+
+docker tag 760f546ebf53 lazynerds.azurecr.io/frontend:v1
+
+docker push  lazynerds.azurecr.io/frontend:v1
+
+docker pull  lazynerds.azurecr.io/frontend:v1
+
+# API
+
+docker tag 760f546ebf53 lazynerds.azurecr.io/api:v1
+
+docker push  lazynerds.azurecr.io/api:v1
+
+docker pull  lazynerds.azurecr.io/api:v1
+
+# DATABASE
+
+docker tag 4d9191a01495 lazynerds.azurecr.io/database:v1
+
+docker push lazynerds.azurecr.io/database:v1
+
+docker pull lazynerds.azurecr.io/database:v1
+
+
