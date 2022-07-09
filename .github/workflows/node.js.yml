@@ -9,6 +9,7 @@ on:
   pull_request:
     branches: [ "main" ]
 
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -38,3 +39,24 @@ jobs:
       working-directory: './application/${{matrix.project}}'
     - run: npm test
       working-directory: './application/${{matrix.project}}'
+
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: 'application'
+    strategy:
+      matrix:
+        node-version: [ 14.x ]
+        project: [ frontend, api, db-seed ]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: './application/${{matrix.project}}/package-lock.json'
+      - run: docker compose build
+        working-directory: './application'
