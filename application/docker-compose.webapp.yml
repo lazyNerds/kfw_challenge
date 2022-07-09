@@ -2,6 +2,7 @@ version: "3"
 services:
   mongodb: 
     #image: yourregistry.azurecr.io/bib/mongo:5
+    
     image: lazynerds.azurecr.io/database:v1
     restart: always
     ports:
