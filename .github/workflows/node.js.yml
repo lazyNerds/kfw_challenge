@@ -54,19 +54,19 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v3
-      - name: Get tag
-        id: tag
-        uses: dawidd6/action-get-tag@v3
+#      - name: Get tag
+#        id: tag
+#        uses: dawidd6/action-get-tag@v1
       - name: log into ACR
-        uses: docker/login-activity@v3
+        uses: docker/login-action@v1
         with:
           registry: ${{secrets.ACR_ENDPOINT}}
           username: ${{secrets.ACR_USERNAME}}
           password: ${{secrets.ACR_PASSWORD}}
       - name: Build & Push
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v2
         with:
           push: true
           build-args: |
             version=${{ steps.tag.outputs.tag }}
-          tags: ${{secrets.ACR_ENDPOINT}}/${{strategy.project}}:${{steps.tag.outputs.tag }}
+          tags: ${{secrets.ACR_ENDPOINT}}/${{strategy.project}}:main
