@@ -11,38 +11,38 @@ on:
 
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: 'application'
-        
-        
-    strategy:
-      matrix:
-        node-version: [14.x]
-        project: [frontend, api]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-        cache-dependency-path: './application/${{matrix.project}}/package-lock.json'
-    - run: npm ci
-      working-directory: './application/${{matrix.project}}'
-    - run: npm run build --if-present
-      working-directory: './application/${{matrix.project}}'
-    - run: npm test
-      working-directory: './application/${{matrix.project}}'
+#  test:
+#    runs-on: ubuntu-latest
+#    defaults:
+#      run:
+#        shell: bash
+#        working-directory: 'application'
+#
+#
+#    strategy:
+#      matrix:
+#        node-version: [14.x]
+#        project: [frontend, api]
+#        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+#
+#    steps:
+#    - uses: actions/checkout@v3
+#    - name: Use Node.js ${{ matrix.node-version }}
+#      uses: actions/setup-node@v3
+#      with:
+#        node-version: ${{ matrix.node-version }}
+#        cache: 'npm'
+#        cache-dependency-path: './application/${{matrix.project}}/package-lock.json'
+#    - run: npm ci
+#      working-directory: './application/${{matrix.project}}'
+#    - run: npm run build --if-present
+#      working-directory: './application/${{matrix.project}}'
+#    - run: npm test
+#      working-directory: './application/${{matrix.project}}'
 
   build:
     runs-on: ubuntu-latest
-    needs: test
+    #needs: test
     defaults:
       run:
         shell: bash
@@ -52,12 +52,21 @@ jobs:
         node-version: [ 14.x ]
         project: [ frontend, api, db-seed ]
     steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: Get tag
+        id: tag
+        uses: dawidd6/action-get-tag@v1
+      - name: log into ACR
+        uses: docker/login-activity@v1
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-          cache-dependency-path: './application/${{matrix.project}}/package-lock.json'
-      - run: docker compose build
-        working-directory: './application'
+          registry: 'lazynerdsACR.azurecr.io'
+          username: 'lazynerdsACR'
+          password: 'yT+NRtHlZoiotaFhBb9nkBnBZwL+UeHQ'
+      - name: Build & Push
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          build-args: |
+            version=${{ steps.tag.outputs.tag }}
+          tags: 'lazynerdsACR.azurecr.io'/${{strategy.project}}:${{steps.tag.outputs.tag }}
