@@ -11,9 +11,13 @@ on:
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        shell: bash
+        working-directory: kfw_challenge
+        
+        
     strategy:
       matrix:
         node-version: [14.x]
