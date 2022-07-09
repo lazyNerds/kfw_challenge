@@ -68,9 +68,15 @@ Erstellen des Terraform plans:
 Anwendung des plans:
 > terraform apply "plan.text"
 
+Challenge 7
 
 # Turn up projects in azure via docker-compose.webapp.yml instead of
 # docker-compose.yml
 
 > docker-compose -f docker-compose.webapp.yml
+
+# Deploy app to internet
+> az appservice plan create --name lazyNerdsPlan --resource-group challenge_04_manual --sku B2
+
+> az webapp create --resource-group challenge_04_manual --plan lazyNerdsPlan --name lazyNerdsApp --multicontainer-config-type compose --multicontainer-config-file docker-compose.webapp.yml
 
