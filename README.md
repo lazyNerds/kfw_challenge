@@ -35,31 +35,35 @@ Die Applikation besteht im wesentlichen aus drei Seiten
 
 #ASC
 
-az acr login --name  lazynerds.azurecr.io
+> az acr login --name  lazynerds.azurecr.io
 
 
 # FRONTEND
 
-docker tag 760f546ebf53 lazynerds.azurecr.io/frontend:v1
+> docker tag 760f546ebf53 lazynerds.azurecr.io/frontend:v1
 
-docker push  lazynerds.azurecr.io/frontend:v1
+> docker push  lazynerds.azurecr.io/frontend:v1
 
-docker pull  lazynerds.azurecr.io/frontend:v1
+> docker pull  lazynerds.azurecr.io/frontend:v1
 
 # API
 
-docker tag 760f546ebf53 lazynerds.azurecr.io/api:v1
+> docker tag 760f546ebf53 lazynerds.azurecr.io/api:v1
 
-docker push  lazynerds.azurecr.io/api:v1
+> docker push  lazynerds.azurecr.io/api:v1
 
-docker pull  lazynerds.azurecr.io/api:v1
+> docker pull  lazynerds.azurecr.io/api:v1
 
 # DATABASE
 
-docker tag 4d9191a01495 lazynerds.azurecr.io/database:v1
+> docker tag 4d9191a01495 lazynerds.azurecr.io/database:v1
 
-docker push lazynerds.azurecr.io/database:v1
+> docker push lazynerds.azurecr.io/database:v1
 
-docker pull lazynerds.azurecr.io/database:v1
+> docker pull lazynerds.azurecr.io/database:v1
 
+# Turn up projects in azure via docker-compose.webapp.yml instead of
+# docker-compose.yml
+
+> docker-compose -f docker-compose.webapp.yml
 
