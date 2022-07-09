@@ -54,6 +54,11 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v3
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{secrets.ACR_ENDPOINT}}/${{ matrix.project }}
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -69,6 +74,6 @@ jobs:
         with:
           context: ./application/${{matrix.project}}
           push: true
-          tags: main
+          tags : ${{ steps.meta.outputs.tags }}
           cache-from: type=gha
           cache-to: type=gha, mode=max
