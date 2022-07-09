@@ -54,9 +54,6 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v3
-#      - name: Get tag
-#        id: tag
-#        uses: dawidd6/action-get-tag@v1
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
@@ -70,5 +67,8 @@ jobs:
       - name: Build & Push
         uses: docker/build-push-action@v3
         with:
+          context: ./application/${{matrix.project}}
           push: true
-          tags: user/app:latest
+          tags: main
+          cache-from: type=gha
+          cache-to: type=gha, mode=max
