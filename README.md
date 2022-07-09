@@ -1,7 +1,5 @@
 # Application
-# test comment 
-#hi
-#h2
+
 ## Intro
 
 Es handelt sich um eine (ältere) "three-tier" Applikation mit frontend, api, database.
@@ -37,30 +35,39 @@ Die Applikation besteht im wesentlichen aus drei Seiten
 
 > az acr login --name  lazynerds.azurecr.io
 
+# Docker images in die azure registry pushen:
 
 # FRONTEND
-
 > docker tag 760f546ebf53 lazynerds.azurecr.io/frontend:v1
-
 > docker push  lazynerds.azurecr.io/frontend:v1
-
 > docker pull  lazynerds.azurecr.io/frontend:v1
 
 # API
-
 > docker tag 760f546ebf53 lazynerds.azurecr.io/api:v1
-
 > docker push  lazynerds.azurecr.io/api:v1
-
 > docker pull  lazynerds.azurecr.io/api:v1
 
 # DATABASE
-
 > docker tag 4d9191a01495 lazynerds.azurecr.io/database:v1
-
 > docker push lazynerds.azurecr.io/database:v1
-
 > docker pull lazynerds.azurecr.io/database:v1
+
+# Data for DB
+wie die anderen
+
+
+# Challenge 5
+# Führt das Terraform File aus, um die resource group und ACR in der Cloud zu erstellen
+
+Initialisieren von Terraform:
+> terraform init
+
+Erstellen des Terraform plans:
+> terraform plan -out plan.text
+
+Anwendung des plans:
+> terraform apply "plan.text"
+
 
 # Turn up projects in azure via docker-compose.webapp.yml instead of
 # docker-compose.yml
