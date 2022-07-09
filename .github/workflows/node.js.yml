@@ -15,7 +15,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ../application
+        working-directory: ./application
         
         
     strategy:
