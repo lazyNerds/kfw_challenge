@@ -15,7 +15,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: ./application/api
+        working-directory: ./application/
         
         
     strategy:
@@ -30,8 +30,8 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        #cache: 'npm'
-        #cache-dependency-path: api/package-lock.json 
+        cache: 'npm'
+        cache-dependency-path: api/package-lock.json 
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
