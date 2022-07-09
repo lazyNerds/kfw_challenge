@@ -60,13 +60,13 @@ jobs:
       - name: log into ACR
         uses: docker/login-activity@v1
         with:
-          registry: 'lazynerdsACR.azurecr.io'
-          username: 'lazynerdsACR'
-          password: 'yT+NRtHlZoiotaFhBb9nkBnBZwL+UeHQ'
+          registry: ${{secrets.ACR_ENDPOINT}}
+          username: ${{secrets.ACR_USERNAME}}
+          password: ${{secrets.ACR_PASSWORD}}
       - name: Build & Push
         uses: docker/build-push-action@v2
         with:
           push: true
           build-args: |
             version=${{ steps.tag.outputs.tag }}
-          tags: 'lazynerdsACR.azurecr.io'/${{strategy.project}}:${{steps.tag.outputs.tag }}
+          tags: ${{secrets.ACR_ENDPOINT}}/${{strategy.project}}:${{steps.tag.outputs.tag }}
