@@ -2,7 +2,7 @@ version: "3"
 services:
   mongodb: 
     #image: yourregistry.azurecr.io/bib/mongo:5
-    image: lazynerds.azurecr.io/mongo:5
+    image: lazynerdsACR.azurecr.io/mongo:5
     restart: always
     ports:
       - 27017:27017
@@ -13,7 +13,7 @@ services:
       args:
         HOST: mongodb
     #image: yourregistry.azurecr.io/bib/mongo-seed:webapp
-    image: lazynerds.azurecr.io/mongo-seed:v1
+    image: lazynerdsACR.azurecr.io/mongo-seed:v1
     depends_on:
       - mongodb
           
@@ -21,7 +21,7 @@ services:
     build:
       context: ./api
     #image: yourregistry.azurecr.io/bib/api
-    image: lazynerds.azurecr.io/api:v1
+    image: lazynerdsACR.azurecr.io/api:v1
     depends_on:
       - mongodb
     environment:
@@ -33,7 +33,7 @@ services:
     build:
       context: ./frontend
     #image: yourregistry.azurecr.io/bib/frontend
-    image: lazynerds.azurecr.io/frontend:v1
+    image: lazynerdsACR.azurecr.io/frontend:v1
     depends_on:
       - api
     environment:
