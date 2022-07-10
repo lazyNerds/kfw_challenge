@@ -33,7 +33,7 @@ Die Applikation besteht im wesentlichen aus drei Seiten
 
 #ASC
 
-> az acr login --name  lazynerds.azurecr.io
+> az acr login --name  lazynerdsacr.azurecr.io
 
 # Docker images in die azure registry pushen:
 
